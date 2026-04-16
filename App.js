@@ -14,11 +14,11 @@ export default function App() {
   
     return(
       <View>
-        <Text style={styles.buttonText} >{CEP.logradouro}</Text>
-        <Text style={styles.buttonText}>{CEP.cep}</Text>
-        <Text style={styles.buttonText}>{CEP.bairro}</Text>
-        <Text style={styles.buttonText}>{CEP.localidade}</Text>
-        <Text style={styles.buttonText}>{CEP.estado}</Text>
+        <Text style={styles.buttonText}>Log: {CEP.logradouro}</Text>
+        <Text style={styles.buttonText}>Cep: {CEP.cep}</Text>
+        <Text style={styles.buttonText}>Bairro: {CEP.bairro}</Text>
+        <Text style={styles.buttonText}>Localidade: {CEP.localidade}</Text>
+        <Text style={styles.buttonText}>Estado: {CEP.estado}</Text>
       </View>
     )
   }
