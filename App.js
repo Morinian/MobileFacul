@@ -1,48 +1,93 @@
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { ScrollView, TextInput, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function App() {
+
+  const [cep, setCEP] = React.useState("");
+  const [cepBuscado, setCepBuscado] = React.useState("");
+
+  function Endereco ({CEP}){
+
+    if(!CEP){
+      return (<Text>cep não encontrado</Text>)
+    }
+  
+    return(
+      <View>
+        <Text style={styles.buttonText} >{CEP.logradouro}</Text>
+        <Text style={styles.buttonText}>{CEP.cep}</Text>
+        <Text style={styles.buttonText}>{CEP.bairro}</Text>
+        <Text style={styles.buttonText}>{CEP.localidade}</Text>
+        <Text style={styles.buttonText}>{CEP.estado}</Text>
+      </View>
+    )
+  }
+
+  async function carregarCEP(){
+    const response = await fetch(`https://viacep.com.br/ws/${cep}/json`);
+    const data = await response.json();
+    setCepBuscado(data);
+  }
+
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollContent} style={styles.container}>
       <View style={styles.caixaTopo}>
-        <Text style={styles.textao}>Header do BCC</Text>
-        <Text style={styles.textinho}>Bem vindo a Mobile</Text>
+
+        <Text style={styles.textao}>Buscar CEP</Text>
+
+        <TextInput 
+          style={styles.input}
+          onChangeText={setCEP}
+          value={cep}
+          placeholder='04696-000'
+          keyboardType='numeric'
+        />   
+
+        <TouchableOpacity onPress={carregarCEP} style={styles.button}>
+          <Text style={styles.buttonText}> Consultar CEP </Text>
+        </TouchableOpacity>
+
+        <Endereco CEP = { cepBuscado ? cepBuscado :  null }/>
+        
       </View>
-      <View style={styles.caixaMeio}> 
-        <Text style={styles.textao}>Lokinho</Text>
-      </View>
-      <View style={styles.caixaTopo}>
-        <Text style={styles.textinho}>MATHEUS OTARIO</Text>
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'orange',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    backgroundColor: '#10403B',
   },
-  textinho: {
-    fontSize: '20px',
-    fontWeight: '1000',
+  scrollContent: {
+    flexGrow: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    paddingVertical: 20,
   },
   caixaTopo: {
-    height: 200,
+    width: 300,
+    height: 600,
+    borderRadius: 25,
+    backgroundColor: '#127369',
+
     alignItems: 'center',
-    justifyContent: 'center'
-  },
-  caixaMeio: {
-    fontSize: '30px',
-    height: 500,
-    width: '100%',
-    backgroundColor: 'pink', 
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
   textao: {
-    fontSize: '50px',
-    fontWeight: '100',
+    color: '#ffff',
+    fontSize: '35px',
+  },
+  input: {
+    borderWidth: 2,
+    borderColor: '#ffff',
+    padding: 10,
+  },
+  button:{
+    backgroundColor: '#8AA6A3',
+  },
+  buttonText:{
+    fontSize: '20px',
+    color: '#ffff',
   }
 });
