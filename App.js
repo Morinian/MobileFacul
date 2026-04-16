@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   caixaTopo: {
     width: 300,
-    height: 600,
+    height: 500,
     borderRadius: 25,
     backgroundColor: '#127369',
 
@@ -81,10 +81,14 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 2,
     borderColor: '#ffff',
+    color: '#ffff',
     padding: 10,
+    borderRadius: 15,
   },
   button:{
     backgroundColor: '#8AA6A3',
+    padding: 15,
+    borderRadius: 5,
   },
   buttonText:{
     fontSize: '20px',
